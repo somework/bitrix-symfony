@@ -1,0 +1,21 @@
+{
+  "name": "somework/bitrix-symfony",
+  "description": "Symfony Bitrix Integration",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Igor Pinchuk",
+      "email": "i.pinchuk.work@gmail.com"
+    }
+  ],
+  "require": {
+    "symfony/symfony": "^3.2",
+    "roave/security-advisories": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "": "src/"
+    }
+  }
+}
