@@ -1,0 +1,40 @@
+Options -Indexes 
+ErrorDocument 404 /404.php
+
+<IfModule mod_php5.c>
+  php_flag session.use_trans_sid off
+  #php_value display_errors 1
+  #php_value mbstring.internal_encoding UTF-8
+</IfModule>
+
+<IfModule mod_dir.c>
+  DirectoryIndex index.php index.html
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} ^/bitrix/.*$
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-l
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !/bitrix/urlrewrite.php$
+    RewriteRule ^(.*)$ /bitrix/urlrewrite.php [L]
+    RewriteRule .* - [E=REMOTE_USER:%{HTTP:Authorization}]
+
+    # Fix the bundles folder
+#    RewriteRule ^bundles/(.*)$ /web/bundles/$1  [QSA,L]
+#    RewriteRule ^favicon.ico /web/favicon.ico [QSA,L]
+#    RewriteRule ^robots.txt /web/robots.txt [QSA,L]
+
+    RewriteCond %{REQUEST_URI} !^/bitrix/.*$
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !\.php$
+    RewriteRule ^(.*)$ /symfony/web/app_dev.php [QSA,L]
+
+    RewriteCond %{REQUEST_URI} !^/bitrix/.*$
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteCond %{REQUEST_FILENAME} \.php$
+    RewriteRule ^(.*)$ /symfony/web/app_dev.php [QSA,L]
+
+</IfModule>
