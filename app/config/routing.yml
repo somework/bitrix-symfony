@@ -1,3 +1,7 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+bitrix:
+    resource: '@BitrixBundle/Controller/'
+    type: annotation

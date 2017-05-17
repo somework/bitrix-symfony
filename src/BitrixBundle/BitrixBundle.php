@@ -4,7 +4,9 @@
 namespace BitrixBundle;
 
 
-class BitrixBundle
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+
+class BitrixBundle extends Bundle
 {
 
 }

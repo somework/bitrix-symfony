@@ -11,8 +11,12 @@ class AppKernel extends Kernel
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
-            new \AppBundle\AppBundle(),
-            new \BitrixBundle\BitrixBundle()
+            new Symfony\Bundle\MonologBundle\MonologBundle(),
+            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
+            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new BitrixBundle\BitrixBundle(),
+            new AppBundle\AppBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
@@ -25,6 +29,9 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
+        if (in_array($this->getEnvironment(), ['test', 'dev'], true)) {
+            return '/tmp/sfcache/' . $this->getEnvironment();
+        }
         return dirname(__DIR__) . '/var/cache/' . $this->getEnvironment();
     }
 

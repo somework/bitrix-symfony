@@ -1,0 +1,6 @@
+services:
+    bitrix.urlrewrite:
+        class: BitrixBundle\Subscribers\UrlRewrite
+        arguments: ['%bitrix.root%', '%bitrix.index_files%']
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller }
