@@ -1,6 +1,20 @@
 services:
-    bitrix.urlrewrite:
-        class: BitrixBundle\Subscribers\UrlRewrite
-        arguments: ['%bitrix.root%', '%bitrix.index_files%']
+    bitrix.enventlistener.filelocatorlistener:
+        class: BitrixBundle\EventListener\BitrixResolverListener
+        arguments: ['@bitrix.path.bitrixresolver', '@kernel', '%bitrix.root%']
         tags:
             - { name: kernel.event_listener, event: kernel.controller }
+            - { name: kernel.event_listener, event: kernel.response }
+    bitrix.path.bitrixresolver:
+        class: BitrixBundle\Path\Resolver\BitrixResolver
+        arguments: ['@bitrix.path.resolver.filecmsresolver', '@bitrix.path.resolver.urlrewrite']
+    bitrix.path.resolver.filecmsresolver:
+        class: BitrixBundle\Path\Resolver\FileCmsResolver
+        arguments: ['%bitrix.root%', '%bitrix.index_files%']
+    bitrix.path.resolver.urlrewrite:
+        class: BitrixBundle\Path\Resolver\UrlRewrite
+        arguments: ['%bitrix.urlrewrite%']
+        calls:
+            - method: setLogger
+              arguments:
+                  - '@logger'
