@@ -18,3 +18,8 @@ services:
             - method: setLogger
               arguments:
                   - '@logger'
+    bitrix.routing.bitrix_loader:
+        class: BitrixBundle\Routing\BitrixLoader
+        arguments: ['%bitrix.root%']
+        tags:
+            - { name: routing.loader }

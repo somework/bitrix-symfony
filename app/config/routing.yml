@@ -5,3 +5,7 @@ app:
 bitrix:
     resource: '@BitrixBundle/Controller/'
     type: annotation
+
+app_extra:
+    resource: '/urlrewrite.php'
+    type: bitrix
